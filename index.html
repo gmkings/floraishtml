@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Questionário de Florais de Bach</title>
+    <style>
+        body { font-family: sans-serif; }
+        .question { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; }
+        #result { font-weight: bold; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Questionário de Florais de Bach</h1>
+    <p>Responda às perguntas e descubra qual emoção está predominante em você.</p>
+
+    <form id="quizForm">
+        <div class="question">
+            <p>1. Como você se sente em relação aos seus medos e preocupações?</p>
+            <input type="radio" name="q1" value="a"> (a) Sinto medo intenso e paralisante...<br>
+            <input type="radio" name="q1" value="b"> (b) Tenho preocupações constantes...<br>
+            <input type="radio" name="q1" value="c"> (c) Escondo meus medos e preocupações...<br>
+            <input type="radio" name="q1" value="d"> (d) Tenho medo de perder o controle...<br>
+            <input type="radio" name="q1" value="e"> (e) Tenho medos vagos e indefinidos...
+        </div>
+
+        <div class="question">
+            <p>2. Como você lida com a incerteza e as decisões?</p>
+            <input type="radio" name="q2" value="a"> (a) Sinto-me inseguro e indeciso...<br>
+            <input type="radio" name="q2" value="b"> (b) Tenho dificuldade em dizer não...<br>
+            <input type="radio" name="q2" value="c"> (c) Sinto-me desanimado e sem esperança...<br>
+            <input type="radio" name="q2" value="d"> (d) Tenho dificuldade em me concentrar...<br>
+            <input type="radio" name="q2" value="e"> (e) Sinto-me sobrecarregado...
+        </div>
+
+        <div class="question">
+            <p>3. Como você se sente em relação ao presente?</p>
+            <input type="radio" name="q3" value="a"> (a) Vivo muito no passado...<br>
+            <input type="radio" name="q3" value="b"> (b) Sinto-me exausto e sem energia...<br>
+            <input type="radio" name="q3" value="c"> (c) Tenho dificuldade em me concentrar...<br>
+            <input type="radio" name="q3" value="d"> (d) Sinto que não estou aproveitando...<br>
+            <input type="radio" name="q3" value="e"> (e) Sinto-me apático e indiferente...
+        </div>
+
+        <div class="question">
+            <p>4. Como você se sente em relação aos seus relacionamentos?</p>
+            <input type="radio" name="q4" value="a"> (a) Prefiro ficar sozinho...<br>
+            <input type="radio" name="q4" value="b"> (b) Sinto-me irritado e impaciente...<br>
+            <input type="radio" name="q4" value="c"> (c) Tenho necessidade de atenção...<br>
+            <input type="radio" name="q4" value="d"> (d) Tenho dificuldade em me expressar...<br>
+            <input type="radio" name="q4" value="e"> (e) Sinto que não tenho amigos verdadeiros...
+        </div>
+
+        <div class="question">
+            <p>5. Como você reage a situações de mudança e transição?</p>
+            <input type="radio" name="q5" value="a"> (a) Sinto-me protegido e acolhido...<br>
+            <input type="radio" name="q5" value="b"> (b) Tenho dificuldade em me adaptar...<br>
+            <input type="radio" name="q5" value="c"> (c) Sinto raiva, inveja e ciúme...<br>
+            <input type="radio" name="q5" value="d"> (d) Sinto medo do desconhecido...<br>
+            <input type="radio" name="q5" value="e"> (e) Sinto-me confuso e desorientado...
+        </div>
+    </form>
+
+    <div id="result"></div>
+    <button type="button" onclick="calculateResult()">Ver Resultado</button>
+
+    <script>
+        let answers = { a: 0, b: 0, c: 0, d: 0, e: 0 };
+
+        function calculateResult() {
+            const form = document.getElementById("quizForm");
+            for (let i = 0; i < form.elements.length; i++) {
+                if (form.elements[i].checked) {
+                    answers[form.elements[i].value]++;
+                }
+            }
+
+            let maxCount = 0;
+            let resultEmotion = "";
+            for (let emotion in answers) {
+                if (answers[emotion] > maxCount) {
+                    maxCount = answers[emotion];
+                    resultEmotion = emotion;
+                }
+            }
+
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = `Sua emoção predominante é: <strong>${getEmotionName(resultEmotion)}</strong>`;
+        }
+
+        function getEmotionName(emotionCode) {
+            switch (emotionCode) {
+                case "a": return "Medo";
+                case "b": return "Incerteza";
+                case "c": return "Falta de Interesse no Presente";
+                case "d": return "Solidão";
+                case "e": return "Sensibilidade Excessiva";
+                default: return "Indefinido";
+            }
+        }
+    </script>
+</body>
+</html>
